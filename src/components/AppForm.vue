@@ -2,29 +2,39 @@
 import {ref, reactive} from 'vue'
 import Resume from './Resume.vue';
 
-// const selects = reactive([
-//     "Заголовок",
-//     "Подзаголовок",
-//     "Аватар",
-//     "Текст"
-// ])
 
-const select = ref("title")
+
+const selects = reactive([
+    {id: 0, title: "Заголовок", text: "", value:"title"},
+    {id: 1, title: "Подзаголовок", text: "", value:"subtitle"},
+    {id: 2, title: "Аватар", text: "", value:"avatar"},
+    {id: 3, title: "Текст", text: "", value:"text"}
+])
+
+const selected = ref("title")
 const textValue = ref("")
 
-
-function selectOption(value) {
-    if(select.value == "title") {
-        console.log(1)
+function selectOption(selectedValue) {
+    if(selected.value == selects[0].value) {
+        selects[0].text = textValue.value
+        console.log(selects[0].text + " " + selected.value)
+        console.log(selectedValue)
+        textValue.value = ""
     }
-    if(select.value == "subtitle") {
-        console.log(2)
+    if(selected.value == selects[1].value) {
+        selects[1].text = textValue.value
+        console.log(selects[1].text + " " + selected.value)
+        textValue.value = ""
     }
-    if(select.value == "avatar") {
-        console.log(3)
+    if(selected.value == selects[2].value) {
+        selects[2].text = textValue.value
+        console.log(selects[2].text + " " + selected.value)
+        textValue.value = ""
     }
-    if(select.value == "text") {
-        console.log(4)
+    if(selected.value == selects[3].value) {
+        selects[3].text = textValue.value
+        console.log(selects[3].text + " " + selected.value)
+        textValue.value = ""
     }
 }
 
@@ -32,17 +42,16 @@ function selectOption(value) {
 
 <template>
      <form class="card card-w30" 
-        @submit.prevent="selectOption">
+        @submit.prevent="">
         <div class="form-control">
             <label for="type">Тип блока</label>
-            <select id="type" v-model="select">
-                <option value="title">Заголовок</option>
+            <select id="type" v-model="selected">
+                <!-- <option value="title">Заголовок</option>
                 <option value="subtitle">Подзаголовок</option>
                 <option value="avatar">Аватар</option>
-                <option value="text">Текст</option>
-                <!-- <option v-for="select in selects" :key="select">{{ select }}</option> -->
+                <option value="text">Текст</option> -->
+                <option v-for="select in selects" :value="select.value">{{select.title}}</option>
             </select>
-            <p>{{ select }}</p>
         </div>
 
         <div class="form-control">
@@ -50,10 +59,9 @@ function selectOption(value) {
             <textarea id="value" rows="3" v-model="textValue"></textarea>
         </div>
 
-        <button class="btn primary">Добавить</button>
+        <button type="submit" @click="selectOption(selected)" class="btn primary">Добавить</button>
     </form>    
     
-
     <Resume
-    :title="select"></Resume>
+        :title="selects.id" ></Resume> // ???????????
 </template>
