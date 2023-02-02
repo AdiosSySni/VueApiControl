@@ -9,43 +9,33 @@ const optionsArray = reactive([
     {id: 3, title: "Текст", text: "", value:"text"}
 ])
 
-const selected = ref()
 const textValue = ref("")
-let idx = null;
-
+let idx = 0
 
 function getOptionsKey(e) {
     return idx = e.target.value
 }
 
 function selectOption(selectedIndex) {
-    console.log(selectedIndex)
+
     if(selectedIndex == optionsArray[0].id) {
         optionsArray[0].text = textValue.value
         console.log(optionsArray[0].text + " " + selectedIndex)
-        textValue.value = ""
     }
     if(selectedIndex == optionsArray[1].id) {
         optionsArray[1].text = textValue.value
         console.log(optionsArray[1].text + " " + selectedIndex)
-        textValue.value = ""
     }
     if(selectedIndex == optionsArray[2].id) {
         optionsArray[2].text = textValue.value
         console.log(optionsArray[2].text + " " + selectedIndex)
-        textValue.value = ""
     }
     if(selectedIndex == optionsArray[3].id) {
         optionsArray[3].text = textValue.value
         console.log(optionsArray[3].text + " " + selectedIndex)
-        textValue.value = ""
     }
+    textValue.value = ""
 }
-
-function Check() {
-    console.log(optionsArray[0].text)
-}
-
 </script>
 
 <template>
@@ -53,11 +43,7 @@ function Check() {
         @submit.prevent="">
         <div class="form-control">
             <label for="type">Тип блока</label>
-            <select id="type" v-model="selected" @change="getOptionsKey($event)">
-                <!-- <option value="title">Заголовок</option>
-                <option value="subtitle">Подзаголовок</option>
-                <option value="avatar">Аватар</option>
-                <option value="text">Текст</option> -->
+            <select id="type" @change="getOptionsKey($event)">
                 <option v-for="option in optionsArray" :key="option.id" :value="option.id">{{option.title}}</option>
             </select>
         </div>
@@ -68,7 +54,6 @@ function Check() {
         </div>
 
         <button type="submit" @click="selectOption(idx)" class="btn primary">Добавить</button>
-     
     </form>    
     
     <Resume
@@ -76,5 +61,5 @@ function Check() {
         :subtitle="optionsArray[1].text"
         :avatar="optionsArray[2].text"
         :text="optionsArray[3].text">
-    </Resume> // ???????????
+    </Resume>
 </template>

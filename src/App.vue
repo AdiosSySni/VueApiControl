@@ -14,10 +14,9 @@ provide('commentsApi', api)
 
 <template>
   <div class="container column">
-    <app-form>
-    </app-form>
+    <AppForm/>
   </div>
-  <comments></comments>
+  <Comments/>
 </template>
 
 <style>

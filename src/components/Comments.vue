@@ -33,7 +33,7 @@ function loadComments() {
 </template>
 
 
-<style lang="sass">
+<style lang="sass" scoped>
     h2
         color: white
 </style>
