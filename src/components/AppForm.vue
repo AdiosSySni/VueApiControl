@@ -2,40 +2,48 @@
 import {ref, reactive} from 'vue'
 import Resume from './Resume.vue';
 
-
-
-const selects = reactive([
+const optionsArray = reactive([
     {id: 0, title: "Заголовок", text: "", value:"title"},
     {id: 1, title: "Подзаголовок", text: "", value:"subtitle"},
     {id: 2, title: "Аватар", text: "", value:"avatar"},
     {id: 3, title: "Текст", text: "", value:"text"}
 ])
 
-const selected = ref("title")
+const selected = ref()
 const textValue = ref("")
+let idx = null;
 
-function selectOption(selectedValue) {
-    if(selected.value == selects[0].value) {
-        selects[0].text = textValue.value
-        console.log(selects[0].text + " " + selected.value)
-        console.log(selectedValue)
+
+function getOptionsKey(e) {
+    return idx = e.target.value
+}
+
+function selectOption(selectedIndex) {
+    console.log(selectedIndex)
+    if(selectedIndex == optionsArray[0].id) {
+        optionsArray[0].text = textValue.value
+        console.log(optionsArray[0].text + " " + selectedIndex)
         textValue.value = ""
     }
-    if(selected.value == selects[1].value) {
-        selects[1].text = textValue.value
-        console.log(selects[1].text + " " + selected.value)
+    if(selectedIndex == optionsArray[1].id) {
+        optionsArray[1].text = textValue.value
+        console.log(optionsArray[1].text + " " + selectedIndex)
         textValue.value = ""
     }
-    if(selected.value == selects[2].value) {
-        selects[2].text = textValue.value
-        console.log(selects[2].text + " " + selected.value)
+    if(selectedIndex == optionsArray[2].id) {
+        optionsArray[2].text = textValue.value
+        console.log(optionsArray[2].text + " " + selectedIndex)
         textValue.value = ""
     }
-    if(selected.value == selects[3].value) {
-        selects[3].text = textValue.value
-        console.log(selects[3].text + " " + selected.value)
+    if(selectedIndex == optionsArray[3].id) {
+        optionsArray[3].text = textValue.value
+        console.log(optionsArray[3].text + " " + selectedIndex)
         textValue.value = ""
     }
+}
+
+function Check() {
+    console.log(optionsArray[0].text)
 }
 
 </script>
@@ -45,12 +53,12 @@ function selectOption(selectedValue) {
         @submit.prevent="">
         <div class="form-control">
             <label for="type">Тип блока</label>
-            <select id="type" v-model="selected">
+            <select id="type" v-model="selected" @change="getOptionsKey($event)">
                 <!-- <option value="title">Заголовок</option>
                 <option value="subtitle">Подзаголовок</option>
                 <option value="avatar">Аватар</option>
                 <option value="text">Текст</option> -->
-                <option v-for="select in selects" :value="select.value">{{select.title}}</option>
+                <option v-for="option in optionsArray" :key="option.id" :value="option.id">{{option.title}}</option>
             </select>
         </div>
 
@@ -59,9 +67,14 @@ function selectOption(selectedValue) {
             <textarea id="value" rows="3" v-model="textValue"></textarea>
         </div>
 
-        <button type="submit" @click="selectOption(selected)" class="btn primary">Добавить</button>
+        <button type="submit" @click="selectOption(idx)" class="btn primary">Добавить</button>
+     
     </form>    
     
     <Resume
-        :title="selects.id" ></Resume> // ???????????
+        :title="optionsArray[0].text"
+        :subtitle="optionsArray[1].text"
+        :avatar="optionsArray[2].text"
+        :text="optionsArray[3].text">
+    </Resume> // ???????????
 </template>

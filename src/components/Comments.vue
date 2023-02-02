@@ -27,7 +27,8 @@ function loadComments() {
         <button class="btn primary" :disabled="isLoad" @click="loadComments()" >Загрузить комментарии</button>
         </p>
         <h2>Комментарии</h2>
-        <app-comment v-if="isLoad" v-for="user in users" :user="user"></app-comment>
+        <app-comment v-if="isLoad" v-for="user in users" :key="user" :user="user"></app-comment>
+        <div  v-else class="loader"></div>
   </div>
 </template>
 
