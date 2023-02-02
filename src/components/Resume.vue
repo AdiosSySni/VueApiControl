@@ -1,5 +1,10 @@
 <script setup>
-
+const props = defineProps({
+    title: String,
+    subtitle: String,
+    avatar: String,
+    text: String
+})
 </script>
 
 <template>

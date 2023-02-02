@@ -1,25 +1,21 @@
 <script setup>
 import Comments from './components/Comments.vue';
-import InputForm from './components/InputForm.vue';
+import AppForm from './components/AppForm.vue';
 import Resume from './components/Resume.vue';
 
 import {ref, reactive, provide} from 'vue'
-import {commentsStore} from './store/store'
+import {commentsApi} from './api/api'
 
-const store = commentsStore()
-provide('commentsStore', store)
-// store.fetchComments()
-// console.log(store.comments)
-
-
+const api = commentsApi()
+provide('commentsApi', api)
 
 </script>
 
 
 <template>
   <div class="container column">
-    <input-form></input-form>
-    <resume></resume>
+    <app-form>
+    </app-form>
   </div>
   <comments></comments>
 </template>
