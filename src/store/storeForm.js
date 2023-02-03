@@ -1,6 +1,7 @@
-import {ref, reactive} from 'vue'
+import {ref, reactive, watchEffect} from 'vue'
 
 const textValue = ref("")
+const isTyping = ref(false)
 let idx = 0
 
 const optionsArray = reactive([
@@ -18,24 +19,42 @@ function getOptionsArray() {
     return optionsArray
 }
 
-function selectOption(selectedIndex) {
+function getIsTyping() {
+    return isTyping
+}
+
+const loaderWatching = () => {
+    watchEffect((onInvalidate) => {
+        if(textValue.value.length > 0) {
+            isTyping.value  = true
+            const showTypingStatus = setTimeout(()=> {
+                isTyping.value = false
+            }, 1000)
+
+            onInvalidate(()=> {
+                clearInterval(showTypingStatus)
+            })
+        }
+        else {
+            isTyping.value = false
+        }   
+    })  
+}
+
+const selectOption = (selectedIndex) => {
     if(selectedIndex == optionsArray[0].id) {
-        optionsArray[0].text = textValue.value
-        console.log(optionsArray[0].text + " " + selectedIndex)
+        return optionsArray[0].text = textValue.value
     }
     if(selectedIndex == optionsArray[1].id) {
-        optionsArray[1].text = textValue.value
-        console.log(optionsArray[1].text + " " + selectedIndex)
+        return optionsArray[1].text = textValue.value
     }
     if(selectedIndex == optionsArray[2].id) {
-        optionsArray[2].text = textValue.value
-        console.log(optionsArray[2].text + " " + selectedIndex)
+        return optionsArray[2].text = textValue.value
     }
     if(selectedIndex == optionsArray[3].id) {
-        optionsArray[3].text = textValue.value
-        console.log(optionsArray[3].text + " " + selectedIndex)
+        return optionsArray[3].text = textValue.value
     }
-    textValue.value = ""
+    return textValue.value = ""
 }
 
 export function storeForms() {
@@ -43,8 +62,8 @@ export function storeForms() {
         getOptionsKey,
         selectOption,
         getOptionsArray,
-        textValue,
-        idx
+        loaderWatching,
+        getIsTyping
     }
    
 }
