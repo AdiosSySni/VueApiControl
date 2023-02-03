@@ -32,7 +32,7 @@ function loadComments() {
         </p>
         <h2>Комментарии</h2>
         <app-comment v-if="isLoad" v-for="user in users" :key="user" :user="user"></app-comment>
-        <div  :class="loader"></div>
+        <div :class="loader"></div>
   </div>
 </template>
 

@@ -1,10 +1,13 @@
 <script setup>
+import {watchEffect} from 'vue'
+
 const props = defineProps({
     title: String,
     subtitle: String,
-    avatar: MediaSource,
+    avatar: String,
     text: String
 })
+
 </script>
 
 <template>
@@ -16,5 +19,6 @@ const props = defineProps({
         </div>
         <h2>{{ subtitle }}</h2>
         <p>{{ text }}</p>
+        <slot></slot>
     </div>
 </template>
