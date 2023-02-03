@@ -12,7 +12,7 @@ const optionsArray = reactive([
 ])
 
 function getOptionsKey(e) {
-    return idx = e.target.value
+    return idx.value = e.target.value
 }
 
 function getOptionsArray() {
